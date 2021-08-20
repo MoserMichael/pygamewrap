@@ -7,17 +7,17 @@ import pygame
 
 OpeningScreen = """
 Basic Shooter Game 
+
 Move your figher and shoot down missiles
 
 Instructions:
-    Moving the fighter plane:
         h,Left  move left
-        l,Right move left
+        l,Right move right
         j,Up    move up
         k,Down  move down
-    Space       shoot back
+        Space   shoot back
 
-You get a point for every downed missile
+You get a point for every downed missile!
 """
 
 from pygame.locals import (

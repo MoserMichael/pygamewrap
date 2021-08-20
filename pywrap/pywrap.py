@@ -83,7 +83,7 @@ class WrapPyGrame:
         self.addEventHandler( pygame.QUIT, self.exit )
 
         self.setFont(font_name, font_size)
-        self.setTextColors((255, 255, 255), (135, 206, 250))
+        self.setTextColors((128, 0, 0), (135, 206, 250))
 
         # Setup for sounds, defaults are good
         #pygame.mixer.init()
