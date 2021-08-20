@@ -1,7 +1,7 @@
 
 # Intro
 
-I have been trying to make a schedule for a python course for my kids [here](https://github.com/MoserMichael/pythoncourse); one of the things that i would like to do is a game with pygame.
+I have been trying to prepare a python course for my kids [here](https://github.com/MoserMichael/pythoncourse); one of the things that i would like to do is a game with pygame.
 Now there are lots of nice pygame tutorials, I followed the following [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, the source code for the tutorial is [here](https://github.com/realpython/materials/tree/master/pygame-a-primer)
 
 The tutorial was great, the documentation for pygame is perfectly adequate, however there was one thing missing - fun; doing something in pygame is hard work!
