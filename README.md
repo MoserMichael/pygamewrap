@@ -6,7 +6,7 @@ Now there are lots of nice pygame tutorials, I followed the following [Pygame pr
 
 The tutorial was great, the documentation for pygame is perfectly adequate, however there was one thing missing - fun; doing something in pygame is hard work!
 
-Compare that to what I had in my youth: I got my intro to programming on a [TI 99/4A home computer](https://en.wikipedia.org/wiki/Texas_Instruments_TI-99/4A) with a 16 kilobyte extended Basic ROM cartridge; I had tons of fun programming games with the sprite graphics on that machine, and the result in 1986 was not so much different as compared to what you have today with pygames, in this age, some thirty five years later (well, maybe only my games didn't get any better ;-)
+Compare that to what I had in my youth: I got my intro to programming on a [TI 99/4A home computer](https://en.wikipedia.org/wiki/Texas_Instruments_TI-99/4A) with a 16 kilobyte extended Basic ROM cartridge; I had tons of fun programming games with the sprite graphics on that machine, and the result in 1986 was not so much different as compared to what you have today with pygames, in this age, some thirty five years later (well, maybe only my games didn't get any better, even if i got rid of goto ;-)
 
 Now this project is trying to make a wrapper, that is hiding some of the complexity and boilerplate setup of the pygame package.
 Here is the result: 
