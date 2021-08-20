@@ -19,6 +19,12 @@ The [original tutorial](https://github.com/realpython/materials/blob/master/pyga
 
 Well, anyway, here is the result for you to judge.
 
+# Requirements
+
+* You must use this with python3, 
+* You need to install pygames 
+
+
 # Issues
 
 The pygame windows does not automatically get the focus, it is not brought to the foreground. I didn't find a way to do this, in a platform independent manner.
