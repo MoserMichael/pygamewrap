@@ -8,6 +8,7 @@ from pygame.locals import (
     K_LEFT,
     K_RIGHT,
     K_ESCAPE,
+    K_SPACE,
     KEYDOWN,
     KEYUP,
     QUIT,
@@ -62,7 +63,7 @@ class WrapPyGrame:
         if "font" in kwargs:
             font_name = kwargs["font"]
         else:
-            font_name = "Arial"
+            font_name = "Courier" #"Arial"
 
         if "fontSize" in kwargs:
             font_size = int(kwargs["fontSize"])
@@ -170,7 +171,7 @@ class WrapPyGrame:
     
             self.clock.tick(self.framerate)
 
-        pygame.quit()
+        #pygame.quit()
 
     # calling this function will cause the game loop to exit, provided that run has been called earlier.
     def exit(self):
@@ -199,3 +200,43 @@ class WrapPyGrame:
         text_surface = self.font.render(msg, True, self.fgcolor, self.bgcolor)
         self.screen.blit(text_surface, (x, y))
 
+
+    def PrintText(self, x,y, *args):
+
+        msg = ' '.join(map(str, args))
+
+        space = self.font.size(' ')[0]  # The width of a space.
+        cur_x, cur_y = x, y
+        for line in str(msg).splitlines():
+            for w in line.split(" "):
+                word_surface = self.font.render(w, 0, self.fgcolor)
+                word_width, word_height = word_surface.get_size()
+                if cur_x + word_width >= self.screen_width:
+                    cur_x = x  # Reset the x.
+                    cur_y += word_height  # Start on new row.
+                self.screen.blit(word_surface, (cur_x, cur_y))
+                cur_x += word_width + space
+            cur_x = x  # Reset the x.
+            cur_y += word_height  # Start on new row.
+
+         
+    def PrintDialog(self, *args):
+        
+        self.screen.fill((135, 206, 250))
+        self.PrintText(0,0, *args)
+        self.Print(0, self.screen_height - self.font_size, "Press Space To Continue")
+        pygame.display.flip()
+
+        cont = True
+        while cont:
+            for event in pygame.event.get():
+                if (event.type == KEYDOWN and event.key == K_SPACE) or event.type == pygame.QUIT:
+                    cont = False
+                    break
+            self.clock.tick(30)
+
+
+            
+            
+
+         
