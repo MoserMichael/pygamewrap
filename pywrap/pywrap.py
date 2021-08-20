@@ -85,8 +85,10 @@ class WrapPyGrame:
         self.setFont(font_name, font_size)
         self.setTextColors((128, 0, 0), (135, 206, 250))
 
+        self.mapFileToSound = dict()
+
         # Setup for sounds, defaults are good
-        #pygame.mixer.init()
+        pygame.mixer.init()
 
 
 
@@ -191,16 +193,19 @@ class WrapPyGrame:
         self.font_size = font_size
         self.font = pygame.font.SysFont(font_name, font_size)
 
+    # set color of text
     def setTextColors(self, fgcolor, bgcolor = None):
         self.fgcolor = fgcolor
         self.bgcolor = bgcolor
 
+    # print a line of text on the screen
     def Print(self, x, y,  *args):
         msg = ' '.join(map(str, args))
         text_surface = self.font.render(msg, True, self.fgcolor, self.bgcolor)
         self.screen.blit(text_surface, (x, y))
 
 
+    # print a lot of text on the screen, text that does not fit the line is shown on the next line.
     def PrintText(self, x,y, *args):
 
         msg = ' '.join(map(str, args))
@@ -220,6 +225,7 @@ class WrapPyGrame:
             cur_y += word_height  # Start on new row.
 
          
+    # print text on the screen, wait for the user to spress space
     def PrintDialog(self, *args):
         
         self.screen.fill((135, 206, 250))
@@ -234,6 +240,23 @@ class WrapPyGrame:
                     cont = False
                     break
             self.clock.tick(30)
+
+    def PlaySound(self, fileName, loops = 0):
+        if not fileName in self.mapFileToSound:
+            sound = pygame.mixer.Sound(fileName)
+            self.mapFileToSound[ fileName ] = sound
+        else:
+            sound = self.mapFileToSound[ fileName ]
+
+        if sound != None:
+            sound.play(loops)
+        else:
+            print("sound: ", fileName, "not found!")
+
+    def PlayBackgroundSound(self, fileName):
+        self.PlaySound(fileName, -1)
+
+
 
 
             
