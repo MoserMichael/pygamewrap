@@ -17,6 +17,10 @@ Here is the result:
 I am not perfectly happy with the result, it does simplify things a bit, however the result is still somewhat complex.
 Well, here is the result.
 
+# Issues
+
+The pygame windows does not automatically get the focus, it is not brought to the foreground. I didn't find a way to do this, in a platform independent manner.
+
 # License 
 
 licensed under MIT license
