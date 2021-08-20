@@ -53,6 +53,7 @@ class Game(pywrap.WrapPyGrame):
         self.PlayBackgroundSound("Apoxode_-_Electric_1.mp3")
         self.PrintDialog(OpeningScreen)
         super().run()
+        self.StopAllSounds()
         self.PrintDialog("Game Over\nYour Score: ", self.score,"\nBullet speed:", self.bullet_speed, "\nEnemy missile speed:", self.max_missile_speed)
 
     def addGoodPlayer(self, player):

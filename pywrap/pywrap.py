@@ -256,6 +256,11 @@ class WrapPyGrame:
     def PlayBackgroundSound(self, fileName):
         self.PlaySound(fileName, -1)
 
+    def StopAllSounds(self):
+        for k,v in self.mapFileToSound.items():
+            v.stop()
+
+
 
 
 
