@@ -95,8 +95,8 @@ class Player(pywrap.WrapSprite):
 
     def handle_key_left(self, game):
         self.rect.move_ip(-5, 0)
-        if self.rect.top <= 0:
-            self.rect.top = 0
+        if self.rect.left <= 0:
+            self.rect.left = 0
 
     def handle_key_right(self, game):
         self.rect.move_ip(5, 0)
