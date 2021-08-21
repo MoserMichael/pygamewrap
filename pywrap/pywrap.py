@@ -88,7 +88,7 @@ class ImageSprite(CacheableSprite):
 
 
 # wraps the pygame screen and game loop
-class WrapPyGrame:
+class PyGame:
 
     def __init__(self, **kwargs):
         pygame.init()

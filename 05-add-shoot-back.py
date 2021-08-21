@@ -21,7 +21,7 @@ from pygame.locals import (
 )
 
 
-class Game(pywrap.WrapPyGrame):
+class Game(pywrap.PyGame):
     def __init__(self):
         super(Game, self).__init__()
         self.goodguy= None

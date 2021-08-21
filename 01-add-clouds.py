@@ -6,7 +6,7 @@ import pywrap
 import random
 
 # create an instance of the game
-game = pywrap.WrapPyGrame()
+game = pywrap.PyGame()
 
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):

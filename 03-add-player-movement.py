@@ -20,7 +20,7 @@ from pygame.locals import (
 
 )
 # create an instance of the game
-game = pywrap.WrapPyGrame()
+game = pywrap.PyGame()
 
 
 # sprite that draws a cloud, all clouds move with the same speed.
