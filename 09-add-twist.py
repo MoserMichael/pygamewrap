@@ -80,7 +80,7 @@ class Game(pywrap.WrapPyGrame):
 
     def on_start_frame(self):
         super().on_start_frame()
-        self.print(0, self.screen_height - self.font_size, "Score: ", self.score, "Weapon:", self.bullet_speed, "Enemy:", self.max_missile_speed)
+        self.print(0, self.screen_height() - self.font_size, "Score: ", self.score, "Weapon:", self.bullet_speed, "Enemy:", self.max_missile_speed)
 
 
 # sprite that draws a bullet shot by the player
@@ -91,7 +91,7 @@ class Bullet(pywrap.WrapSprite):
             (255, 255, 255),        # background color of the sprite
             (x, y) ) # initial position of sprite
         self.speed = game.bullet_speed
-        self.width = game.screen_width
+        self.width = game.screen_width()
 
     # Move the bullet based on a constant speed
     # Remove it when it passes the left edge of the screen
@@ -111,7 +111,7 @@ class Player(pywrap.WrapSprite):
         super(Player, self).__init__(
             "jet.png",    # the picture of the sprite
             (255, 255, 255),        # background color of the sprite
-            (game.screen_width/3, game.screen_height/2),    # initial position of sprite
+            (game.screen_width()/3, game.screen_height()/2),    # initial position of sprite
             2)
         self.game = game
         
@@ -125,8 +125,8 @@ class Player(pywrap.WrapSprite):
 
     def handle_key_down(self, game):
         self.rect.move_ip(0, 2)
-        if self.rect.bottom >= game.screen_height:
-            self.rect.bottom = game.screen_height
+        if self.rect.bottom >= game.screen_height():
+            self.rect.bottom = game.screen_height()
         game.play_sound("Falling_putter.ogg")
 
 
@@ -137,8 +137,8 @@ class Player(pywrap.WrapSprite):
 
     def handle_key_right(self, game):
         self.rect.move_ip(5, 0)
-        if self.rect.right > game.screen_width:
-            self.rect.right = game.screen_width
+        if self.rect.right > game.screen_width():
+            self.rect.right = game.screen_width()
 
     def shoot(self, game):
         bullet = Bullet(game, self.rect.x+self.rect.width, self.rect.y+self.rect.height/2)
@@ -185,7 +185,7 @@ class Cloud(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
-    cloud = Cloud(game.screen_width, game.screen_height)
+    cloud = Cloud(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
@@ -198,7 +198,7 @@ class Missile(pywrap.WrapSprite):
         super(Missile, self).__init__(
             "missile.png",    # the picture of the sprite
             (255, 255, 255),        # background color of the sprite
-            (random.randint(game.screen_width + 20, game.screen_width + 100),random.randint(0, game.screen_height)), # initial position of sprite\
+            (random.randint(game.screen_width() + 20, game.screen_width() + 100),random.randint(0, game.screen_height())), # initial position of sprite\
             1)
         self.speed = random.randint(5, game.max_missile_speed)
 

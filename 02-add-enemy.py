@@ -27,7 +27,7 @@ class Cloud(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
-    cloud = Cloud(game.screen_width, game.screen_height)
+    cloud = Cloud(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
@@ -54,7 +54,7 @@ class Missile(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
     # create a new cloud sprite
-    missile = Missile(game.screen_width, game.screen_height)
+    missile = Missile(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(missile) # add as last to list of all sprites, so it will be drawn above the clouds
 

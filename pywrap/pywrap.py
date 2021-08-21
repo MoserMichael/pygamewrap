@@ -100,15 +100,15 @@ class WrapPyGrame:
             self.framerate = 30
 
         if "width" in kwargs:
-            self.screen_width = kwargs["width"]
+            self.display_width = kwargs["width"]
         else:    
-            self.screen_width = 800
+            self.display_width = 800
 
 
         if "height" in kwargs:
-            self.screen_height = kwargs["height"]
+            self.display_height = kwargs["height"]
         else:    
-            self.screen_height = 600
+            self.display_height = 600
 
 
         if "font" in kwargs:
@@ -126,7 +126,7 @@ class WrapPyGrame:
         else:
             self.sprite_cache_size = 100
 
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.screen = pygame.display.set_mode((self.display_width, self.display_height))
         self.all_sprites = pygame.sprite.LayeredUpdates()
 
         self.last_timer_event = pygame.USEREVENT + 1
@@ -151,6 +151,11 @@ class WrapPyGrame:
 
         PygameGlobal.set_game(self)
 
+    def screen_width(self):
+        return self.display_width
+
+    def screen_height(self):
+        return self.display_height
 
 
     # add event handler
@@ -277,7 +282,7 @@ class WrapPyGrame:
             for w in line.split(" "):
                 word_surface = self.font.render(w, 0, self.fgcolor)
                 word_width, word_height = word_surface.get_size()
-                if cur_x + word_width >= self.screen_width:
+                if cur_x + word_width >= self.display_width:
                     cur_x = x  # Reset the x.
                     cur_y += word_height  # Start on new row.
                 self.screen.blit(word_surface, (cur_x, cur_y))
@@ -291,7 +296,7 @@ class WrapPyGrame:
         
         self.screen.fill((135, 206, 250))
         self.print_text(0,0, *args)
-        self.print(0, self.screen_height - self.font_size, "Press Space To Continue")
+        self.print(0, self.display_height - self.font_size, "Press Space To Continue")
         pygame.display.flip()
 
         cont = True

@@ -30,7 +30,7 @@ class Player(pywrap.WrapSprite):
             "jet.png",    # the picture of the sprite
             (255, 255, 255),        # background color of the sprite
             (width/3, height/2),    # initial position of sprite
-            0)                      # drawn above the clouds and the bullets
+            2)                      # drawn above the clouds and the bullets
         self.screen_width = width
         self.screen_height = height
 
@@ -55,7 +55,7 @@ class Player(pywrap.WrapSprite):
             self.rect.right = self.screen_width
 
 
-player = Player(game.screen_width, game.screen_height)
+player = Player(game.screen_width(), game.screen_height())
 game.add_key_pressed_event(K_UP, player.handle_key_up)
 game.add_key_pressed_event(K_k, player.handle_key_up)
 
@@ -77,7 +77,7 @@ class Cloud(pywrap.WrapSprite):
             "cloud.png",    # the picture of the sprite
             (0,0,0),        # background color of the sprite
             (random.randint(width + 20, width + 100),random.randint(0, height)), # initial position of sprite
-            2) # layer
+            1) # layer
 
 
     # Move the cloud based on a constant speed
@@ -90,7 +90,7 @@ class Cloud(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
-    cloud = Cloud(game.screen_width, game.screen_height)
+    cloud = Cloud(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
@@ -117,7 +117,7 @@ class Missile(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
     # create a new cloud sprite
-    missile = Missile(game.screen_width, game.screen_height)
+    missile = Missile(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(missile) # add as last of the sprites, so it will be drawn above the clouds
 

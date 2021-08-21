@@ -73,7 +73,7 @@ class Player(pywrap.WrapSprite):
             self.rect.right = self.screen_width
 
 
-player = Player(game.screen_width, game.screen_height)
+player = Player(game.screen_width(), game.screen_height())
 game.add_key_pressed_event(K_UP, player.handle_key_up)
 game.add_key_pressed_event(K_k, player.handle_key_up)
 
@@ -109,7 +109,7 @@ class Cloud(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
-    cloud = Cloud(game.screen_width, game.screen_height)
+    cloud = Cloud(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
@@ -136,7 +136,7 @@ class Missile(pywrap.WrapSprite):
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
     # create a new cloud sprite
-    missile = Missile(game.screen_width, game.screen_height)
+    missile = Missile(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(missile) # add as last of the sprites, so it will be drawn above the clouds
     game.add_bad_player(missile)

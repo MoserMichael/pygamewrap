@@ -11,7 +11,7 @@ game = pywrap.WrapPyGrame()
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
-    cloud = Cloud(game.screen_width, game.screen_height)
+    cloud = Cloud(game.screen_width(), game.screen_height())
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
