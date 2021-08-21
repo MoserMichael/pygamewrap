@@ -28,7 +28,7 @@ class WrapSprite(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center = initPos)
 
     # draws the buffer on the current screen buffer.
-    def drawOnBuffer(self, game):
+    def draw_on_buffer(self, game):
         game.screen.blit(self.surf, self.rect)      
 
     # move the sprite position 
@@ -164,7 +164,7 @@ class WrapPyGrame:
 
             # draw all sprites for this frame on the current buffer (the current buffer is not visible)
             for entity in self.all_sprites:
-                entity.drawOnBuffer(self)
+                entity.draw_on_buffer(self)
       
             # make current buffer visible.
             pygame.display.flip()
