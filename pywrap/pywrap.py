@@ -1,3 +1,4 @@
+from random import gammavariate
 from types import prepare_class
 from typing import NamedTuple
 import pygame
@@ -15,6 +16,17 @@ from pygame.locals import (
     RLEACCEL
 )
 
+class PygameGlobal:
+    game = None
+
+    @staticmethod
+    def get_game():
+        return PygameGlobal.game
+
+    @staticmethod
+    def set_game(game):
+        PygameGlobal.game = game
+
 # sprite wrapping class
 class WrapSprite(pygame.sprite.Sprite):
 
@@ -23,7 +35,8 @@ class WrapSprite(pygame.sprite.Sprite):
     def __init__(self, imageFile, transparentBackgroundColor, initPos, layer=0):
         self._layer  = layer
         super(WrapSprite, self).__init__()
-        self.surf = pygame.image.load(imageFile).convert()
+        #self.surf = pygame.image.load(imageFile).convert()
+        self.surf = PygameGlobal.get_game().load_image(imageFile).convert()
         self.surf.set_colorkey(transparentBackgroundColor, RLEACCEL)
         self.rect = self.surf.get_rect(center = initPos)
 
@@ -85,10 +98,14 @@ class WrapPyGrame:
         self.set_font(font_name, font_size)
         self.set_text_colors((128, 0, 0), (135, 206, 250))
 
-        self.mapFileToSound = dict()
+        self.map_file_to_sound = dict()
+        self.map_file_to_image = dict()
+        
 
         # Setup for sounds, defaults are good
         pygame.mixer.init()
+
+        PygameGlobal.set_game(self)
 
 
 
@@ -241,12 +258,22 @@ class WrapPyGrame:
                     break
             self.clock.tick(30)
 
+    def load_image(self, fileName):
+        if not fileName in self.map_file_to_image:
+            image = pygame.image.load(fileName)
+            if image == None:
+                print("Can't load image file", fileName)
+            self.map_file_to_image[ fileName ] = image
+            return image
+        
+        return self.map_file_to_image[ fileName ] 
+
     def play_sound(self, fileName, loops = 0):
-        if not fileName in self.mapFileToSound:
+        if not fileName in self.map_file_to_sound:
             sound = pygame.mixer.Sound(fileName)
-            self.mapFileToSound[ fileName ] = sound
+            self.map_file_to_sound[ fileName ] = sound
         else:
-            sound = self.mapFileToSound[ fileName ]
+            sound = self.map_file_to_sound[ fileName ]
 
         if sound != None:
             sound.play(loops)
@@ -257,7 +284,7 @@ class WrapPyGrame:
         self.play_sound(fileName, -1)
 
     def stop_all_sounds(self):
-        for k,v in self.mapFileToSound.items():
+        for k,v in self.map_file_to_sound.items():
             v.stop()
 
 
