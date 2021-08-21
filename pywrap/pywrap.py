@@ -66,12 +66,12 @@ class AnimatedSprite(CacheableSprite):
 
 
 # sprite wrapping class
-class WrapSprite(CacheableSprite):
+class ImageSprite(CacheableSprite):
 
     # sprite constructor, loads an image file from imageFile, with the transparent color transparentBackgroundColor
     # placed to the initial position initPos
     def __init__(self, imageFile, transparentBackgroundColor, initPos, layer=0):
-        super(WrapSprite, self).__init__(layer)
+        super(ImageSprite, self).__init__(layer)
 
         #self.surf = pygame.image.load(imageFile).convert()
         self.surf = PygameGlobal.get_game().load_image(imageFile).convert()
@@ -183,7 +183,7 @@ class WrapPyGrame:
         return timerVal
 
 
-    # add a sprite the the group of all sprites, Note that the sprite is being rendered according to its layer (see WrapSprite init)
+    # add a sprite the the group of all sprites, Note that the sprite is being rendered according to its layer (see ImageSprite init)
     def add_sprite(self, player):
         self.all_sprites.add(player)
 

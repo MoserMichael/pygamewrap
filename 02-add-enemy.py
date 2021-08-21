@@ -10,7 +10,7 @@ game = pywrap.WrapPyGrame()
 
 
 # sprite that draws a cloud, all clouds move with the same speed.
-class Cloud(pywrap.WrapSprite):
+class Cloud(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Cloud, self).__init__(
             "cloud.png",    # the picture of the sprite
@@ -35,7 +35,7 @@ def addCloud(game):
 game.add_timer_event(1000, addCloud)
 
 # sprite that draws a missile, missiles have different velocity
-class Missile(pywrap.WrapSprite):
+class Missile(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Missile, self).__init__(
             "missile.png",    # the picture of the sprite
