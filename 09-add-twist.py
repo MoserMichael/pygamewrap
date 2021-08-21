@@ -51,13 +51,13 @@ class Game(pywrap.WrapPyGrame):
         super().run()
         self.print_dialog("Game Over\nYour Score: ", self.score,"\nBullet speed:", self.bullet_speed, "\nEnemy missile speed:", self.max_missile_speed)
 
-    def addGoodPlayer(self, player):
+    def add_good_player(self, player):
         self.goodguy = player
 
-    def addBadPlayer(self, player):
+    def add_bad_player(self, player):
         self.badguys.add(player)
 
-    def addBullet(self, bullet):
+    def add_bullet(self, bullet):
         self.bullets.add(bullet)
 
     def on_colission_test(self):
@@ -116,26 +116,26 @@ class Player(pywrap.WrapSprite):
         self.game = game
         
 
-    def handleKeyUp(self, game):
+    def handle_key_up(self, game):
         self.rect.move_ip(0, -2)
         if self.rect.top <= 0:
             self.rect.top = 0
         game.play_sound("Rising_putter.ogg")
 
 
-    def handleKeyDown(self, game):
+    def handle_key_down(self, game):
         self.rect.move_ip(0, 2)
         if self.rect.bottom >= game.screen_height:
             self.rect.bottom = game.screen_height
         game.play_sound("Falling_putter.ogg")
 
 
-    def handleKeyLeft(self, game):
+    def handle_key_left(self, game):
         self.rect.move_ip(-5, 0)
         if self.rect.top <= 0:
             self.rect.top = 0
 
-    def handleKeyRight(self, game):
+    def handle_key_right(self, game):
         self.rect.move_ip(5, 0)
         if self.rect.right > game.screen_width:
             self.rect.right = game.screen_width
@@ -143,27 +143,27 @@ class Player(pywrap.WrapSprite):
     def shoot(self, game):
         bullet = Bullet(game, self.rect.x+self.rect.width, self.rect.y+self.rect.height/2)
         game.add_sprite(bullet)
-        game.addBullet(bullet)
+        game.add_bullet(bullet)
 
 
 player = Player(game)
-game.add_key_pressed_event(K_UP, player.handleKeyUp)
-game.add_key_pressed_event(K_k, player.handleKeyUp)
+game.add_key_pressed_event(K_UP, player.handle_key_up)
+game.add_key_pressed_event(K_k, player.handle_key_up)
 
-game.add_key_pressed_event(K_DOWN,player.handleKeyDown)
-game.add_key_pressed_event(K_j, player.handleKeyDown)
+game.add_key_pressed_event(K_DOWN,player.handle_key_down)
+game.add_key_pressed_event(K_j, player.handle_key_down)
 
-game.add_key_pressed_event(K_LEFT, player.handleKeyLeft)
-game.add_key_pressed_event(K_h, player.handleKeyLeft)
+game.add_key_pressed_event(K_LEFT, player.handle_key_left)
+game.add_key_pressed_event(K_h, player.handle_key_left)
 
-game.add_key_pressed_event(K_RIGHT, player.handleKeyRight)
-game.add_key_pressed_event(K_l, player.handleKeyRight)
+game.add_key_pressed_event(K_RIGHT, player.handle_key_right)
+game.add_key_pressed_event(K_l, player.handle_key_right)
 
 game.add_key_down_event(K_SPACE, player.shoot)
 
 
 game.add_sprite(player)
-game.addGoodPlayer(player)
+game.add_good_player(player)
 
 # sprite that dkraws a cloud, all clouds move with the same speed.
 class Cloud(pywrap.WrapSprite):
@@ -210,16 +210,16 @@ class Missile(pywrap.WrapSprite):
             self.kill() 
 
 # is being called when the time event fires (see call to add_timer_event)
-def addMissile(game):
+def add_missile(game):
     # create a new cloud sprite
     missile = Missile(game)
     # add the cloud sprite to the game.
     game.add_sprite(missile) # add as last of the sprites, so it will be drawn above the clouds
-    game.addBadPlayer(missile)
+    game.add_bad_player(missile)
 
 
-# add timer, once every 250 millisecond the addMissile function will be called.
-game.add_timer_event(250, addMissile)
+# add timer, once every 250 millisecond the add_missile function will be called.
+game.add_timer_event(250, add_missile)
 
 # run the game loop
 game.run()
