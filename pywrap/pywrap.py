@@ -27,14 +27,52 @@ class PygameGlobal:
     def set_game(game):
         PygameGlobal.game = game
 
+
+class CacheableSprite(pygame.sprite.Sprite):
+
+    def __init__(self, layer):
+        self._layer  = layer
+        super(CacheableSprite, self).__init__()
+ 
+    def kill(self):
+        # remove sprite from all groups
+        super().kill()
+
+        # adds the sprite to the cache - if the sprite type supports caching (if the derived class has a reuse method)
+        PygameGlobal.get_game().add_to_cache_(self)
+
+
+
+class AnimatedSprite(CacheableSprite):
+
+    def __init__(self, imageFileList, transparentBackgroundColor, initPos, layer=0):
+        super(AnimatedSprite, self).__init__(layer)
+
+        self.images = list()
+
+        for imgName in imageFileList:
+            surf = PygameGlobal.get_game().load_image(imgName).convert()
+            surf.set_colorkey(transparentBackgroundColor, RLEACCEL)
+            self.images.append( surf )
+
+        self.surf = self.images[0]
+        self.rect = self.surf.get_rect(center = initPos)
+        self.current_frame = -1
+        
+    # draws the buffer on the current screen buffer.
+    def draw_on_buffer(self, game):
+        self.current_frame = (self.current_frame + 1) % len(self.images)
+        game.screen.blit(self.images[ self.current_frame ], self.rect)      
+
+
 # sprite wrapping class
-class WrapSprite(pygame.sprite.Sprite):
+class WrapSprite(CacheableSprite):
 
     # sprite constructor, loads an image file from imageFile, with the transparent color transparentBackgroundColor
     # placed to the initial position initPos
     def __init__(self, imageFile, transparentBackgroundColor, initPos, layer=0):
-        self._layer  = layer
-        super(WrapSprite, self).__init__()
+        super(WrapSprite, self).__init__(layer)
+
         #self.surf = pygame.image.load(imageFile).convert()
         self.surf = PygameGlobal.get_game().load_image(imageFile).convert()
         self.surf.set_colorkey(transparentBackgroundColor, RLEACCEL)
@@ -44,9 +82,9 @@ class WrapSprite(pygame.sprite.Sprite):
     def draw_on_buffer(self, game):
         game.screen.blit(self.surf, self.rect)      
 
-    # move the sprite position 
-    def update(self):
-        pass   
+   
+   
+
 
 
 # wraps the pygame screen and game loop
@@ -83,6 +121,11 @@ class WrapPyGrame:
         else:
             font_size = 32
 
+        if "spritecachesize" in kwargs:
+            self.sprite_cache_size = int(kwargs["spritecachesize"])
+        else:
+            self.sprite_cache_size = 100
+
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.all_sprites = pygame.sprite.LayeredUpdates()
 
@@ -100,6 +143,7 @@ class WrapPyGrame:
 
         self.map_file_to_sound = dict()
         self.map_file_to_image = dict()
+        self.map_type_to_spritecache = dict()
         
 
         # Setup for sounds, defaults are good
@@ -286,6 +330,40 @@ class WrapPyGrame:
     def stop_all_sounds(self):
         for k,v in self.map_file_to_sound.items():
             v.stop()
+
+    def get_cached_sprite(self, sprite_class):
+        type_name = str(sprite_class)
+        if  type_name in self.map_type_to_spritecache:
+            cache = self.map_type_to_spritecache[ type_name ]
+
+            if len(cache) != 0:
+                return cache.pop()
+        return None
+
+
+
+    def add_to_cache_(self, sprite):
+
+        # check if sprite is cacheable - it is if it has the reuse method
+        reuse_method = getattr(sprite,"reuse", None)
+        if reuse_method != None and callable(reuse_method):
+
+            # this trick returns the type of the sprites derived class.
+            type_name = str(sprite.__class__)
+
+            # get per sprite type cache
+            if not type_name in self.map_type_to_spritecache:
+                self.map_type_to_spritecache[ type_name ] = list()
+            
+            sprite_cache = self.map_type_to_spritecache[ type_name ]
+
+            # check if cache is not too big.
+            if len(sprite_cache) < self.sprite_cache_size:
+
+                # cache the sprite
+                sprite_cache.append(sprite)
+                
+            
 
 
 
