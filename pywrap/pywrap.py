@@ -80,10 +80,10 @@ class WrapPyGrame:
         self.key_pressed_handlers = dict()
         self.running = True
 
-        self.addEventHandler( pygame.QUIT, self.exit )
+        self.add_event_handler( pygame.QUIT, self.exit )
 
-        self.setFont(font_name, font_size)
-        self.setTextColors((128, 0, 0), (135, 206, 250))
+        self.set_font(font_name, font_size)
+        self.set_text_colors((128, 0, 0), (135, 206, 250))
 
         self.mapFileToSound = dict()
 
@@ -93,32 +93,32 @@ class WrapPyGrame:
 
 
     # add event handler
-    def addEventHandler(self, eventType, handlerFunc):
+    def add_event_handler(self, eventType, handlerFunc):
         self.event_handler[ eventType ] = handlerFunc
 
     # add key down event handler
-    def addKeyDownEvent(self, key, handlerFunc):
+    def add_key_down_event(self, key, handlerFunc):
         self.key_down_handlers[ key ] = handlerFunc
 
     # add key up event handler
-    def addKeyUpEvent(self, key, handlerFunc):
+    def add_key_up_event(self, key, handlerFunc):
         self.key_up_handlers[ key ] = handlerFunc
 
     # add key pressed handler, is being called on each frame if the key is still pressed.
-    def addKeyPressedEvent(self, key, handlerFunc):
+    def add_key_pressed_event(self, key, handlerFunc):
         self.key_pressed_handlers[ key ] = handlerFunc
 
     # add a timer event, the handlerFunc function argument will be called once per timeInMillisecond milliseconds.
-    def addTimerEvent(self, timeInMillisecond, handlerFunc):
+    def add_timer_event(self, timeInMillisecond, handlerFunc):
         timerVal = self.last_timer_event
-        self.addEventHandler( timerVal, handlerFunc)
+        self.add_event_handler( timerVal, handlerFunc)
         pygame.time.set_timer(timerVal, timeInMillisecond)
         self.last_timer_event += 1
         return timerVal
 
 
     # add a sprite the the group of all sprites, Note that the sprite is being rendered according to its layer (see WrapSprite init)
-    def addSprite(self, player):
+    def add_sprite(self, player):
         self.all_sprites.add(player)
 
     # run the game loop
@@ -126,7 +126,7 @@ class WrapPyGrame:
         while self.running:
             
             # start of frame, draw the empty stage  here.
-            self.onStartFrame()        
+            self.on_start_frame()        
 
             # handle all events
             for event in pygame.event.get():
@@ -169,7 +169,7 @@ class WrapPyGrame:
             # make current buffer visible.
             pygame.display.flip()
 
-            self.onCollissionTest()
+            self.on_colission_test()
     
             self.clock.tick(self.framerate)
 
@@ -180,33 +180,33 @@ class WrapPyGrame:
         self.running = False    
 
     # called on the beginning of each frame; here you can override to fill in the backgraound picture.
-    def onStartFrame(self):
+    def on_start_frame(self):
         self.screen.fill((135, 206, 250))
 
     # finished the frame and flipped the display, now it's time to test for collisions.
-    def onCollissionTest(self):
+    def on_colission_test(self):
         pass
 
     # set the current font that is used.
-    def setFont(self, font_name, font_size):
+    def set_font(self, font_name, font_size):
         self.font_name = font_name
         self.font_size = font_size
         self.font = pygame.font.SysFont(font_name, font_size)
 
     # set color of text
-    def setTextColors(self, fgcolor, bgcolor = None):
+    def set_text_colors(self, fgcolor, bgcolor = None):
         self.fgcolor = fgcolor
         self.bgcolor = bgcolor
 
     # print a line of text on the screen
-    def Print(self, x, y,  *args):
+    def print(self, x, y,  *args):
         msg = ' '.join(map(str, args))
         text_surface = self.font.render(msg, True, self.fgcolor, self.bgcolor)
         self.screen.blit(text_surface, (x, y))
 
 
     # print a lot of text on the screen, text that does not fit the line is shown on the next line.
-    def PrintText(self, x,y, *args):
+    def print_text(self, x,y, *args):
 
         msg = ' '.join(map(str, args))
 
@@ -226,11 +226,11 @@ class WrapPyGrame:
 
          
     # print text on the screen, wait for the user to spress space
-    def PrintDialog(self, *args):
+    def print_dialog(self, *args):
         
         self.screen.fill((135, 206, 250))
-        self.PrintText(0,0, *args)
-        self.Print(0, self.screen_height - self.font_size, "Press Space To Continue")
+        self.print_text(0,0, *args)
+        self.print(0, self.screen_height - self.font_size, "Press Space To Continue")
         pygame.display.flip()
 
         cont = True
@@ -241,7 +241,7 @@ class WrapPyGrame:
                     break
             self.clock.tick(30)
 
-    def PlaySound(self, fileName, loops = 0):
+    def play_sound(self, fileName, loops = 0):
         if not fileName in self.mapFileToSound:
             sound = pygame.mixer.Sound(fileName)
             self.mapFileToSound[ fileName ] = sound
@@ -253,10 +253,10 @@ class WrapPyGrame:
         else:
             print("sound: ", fileName, "not found!")
 
-    def PlayBackgroundSound(self, fileName):
-        self.PlaySound(fileName, -1)
+    def play_background_sound(self, fileName):
+        self.play_sound(fileName, -1)
 
-    def StopAllSounds(self):
+    def stop_all_sounds(self):
         for k,v in self.mapFileToSound.items():
             v.stop()
 

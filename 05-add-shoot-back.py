@@ -37,7 +37,7 @@ class Game(pywrap.WrapPyGrame):
     def addBullet(self, bullet):
         self.bullets.add(bullet)
 
-    def onCollissionTest(self):
+    def on_colission_test(self):
         if pygame.sprite.spritecollideany(self.goodguy, self.badguys):
             print("game over")
             self.exit()
@@ -105,27 +105,27 @@ class Player(pywrap.WrapSprite):
 
     def shoot(self, game):
         bullet = Bullet(game.screen_width, self.rect.x+self.rect.width, self.rect.y+self.rect.height/2)
-        game.addSprite(bullet)
+        game.add_sprite(bullet)
         game.addBullet(bullet)
 
 
 player = Player(game.screen_width, game.screen_height)
-game.addKeyPressedEvent(K_UP, player.handleKeyUp)
-game.addKeyPressedEvent(K_k, player.handleKeyUp)
+game.add_key_pressed_event(K_UP, player.handleKeyUp)
+game.add_key_pressed_event(K_k, player.handleKeyUp)
 
-game.addKeyPressedEvent(K_DOWN,player.handleKeyDown)
-game.addKeyPressedEvent(K_j, player.handleKeyDown)
+game.add_key_pressed_event(K_DOWN,player.handleKeyDown)
+game.add_key_pressed_event(K_j, player.handleKeyDown)
 
-game.addKeyPressedEvent(K_LEFT, player.handleKeyLeft)
-game.addKeyPressedEvent(K_h, player.handleKeyLeft)
+game.add_key_pressed_event(K_LEFT, player.handleKeyLeft)
+game.add_key_pressed_event(K_h, player.handleKeyLeft)
 
-game.addKeyPressedEvent(K_RIGHT, player.handleKeyRight)
-game.addKeyPressedEvent(K_l, player.handleKeyRight)
+game.add_key_pressed_event(K_RIGHT, player.handleKeyRight)
+game.add_key_pressed_event(K_l, player.handleKeyRight)
 
-game.addKeyDownEvent(K_SPACE, player.shoot)
+game.add_key_down_event(K_SPACE, player.shoot)
 
 
-game.addSprite(player)
+game.add_sprite(player)
 game.addGoodPlayer(player)
 
 # sprite that dkraws a cloud, all clouds move with the same speed.
@@ -145,15 +145,15 @@ class Cloud(pywrap.WrapSprite):
         if self.rect.right < 0:
             self.kill()       
 
-# is being called when the time event fires (see call to addTimerEvent)
+# is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
     cloud = Cloud(game.screen_width, game.screen_height)
     # add the cloud sprite to the game.
-    game.addSprite(cloud)
+    game.add_sprite(cloud)
 
 # add a timer to the game. once per second (100ms) is is calling the addCloud function
-game.addTimerEvent(1000, addCloud)
+game.add_timer_event(1000, addCloud)
 
 # sprite that draws a missile, missiles have different velocity
 class Missile(pywrap.WrapSprite):
@@ -172,17 +172,17 @@ class Missile(pywrap.WrapSprite):
         if self.rect.right < 0:
             self.kill() 
 
-# is being called when the time event fires (see call to addTimerEvent)
+# is being called when the time event fires (see call to add_timer_event)
 def addMissile(game):
     # create a new cloud sprite
     missile = Missile(game.screen_width, game.screen_height)
     # add the cloud sprite to the game.
-    game.addSprite(missile) # add as last of the sprites, so it will be drawn above the clouds
+    game.add_sprite(missile) # add as last of the sprites, so it will be drawn above the clouds
     game.addBadPlayer(missile)
 
 
 # add timer, once every 250 millisecond the addMissile function will be called.
-game.addTimerEvent(250, addMissile)
+game.add_timer_event(250, addMissile)
 
 # run the game loop
 game.run()

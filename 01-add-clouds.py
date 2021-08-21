@@ -8,15 +8,15 @@ import random
 # create an instance of the game
 game = pywrap.WrapPyGrame()
 
-# is being called when the time event fires (see call to addTimerEvent)
+# is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
     # create a new cloud sprite
     cloud = Cloud(game.screen_width, game.screen_height)
     # add the cloud sprite to the game.
-    game.addSprite(cloud)
+    game.add_sprite(cloud)
 
 # add a timer to the game. once per second (100ms) is is calling the addCloud function
-game.addTimerEvent(1000, addCloud)
+game.add_timer_event(1000, addCloud)
 
 # sprite that draws a cloud, all clouds move with the same speed.
 class Cloud(pywrap.WrapSprite):
