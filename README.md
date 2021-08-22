@@ -1,4 +1,4 @@
-# PyWrap - a tools for writing games with pygame
+# PygameWrap - a tools for writing games with pygame
 
 ## Intro
 
@@ -28,6 +28,7 @@ Well, anyway, here is the result for you to judge.
 
 You can get this library
 
+* with pip ```pip3 install PygameWrap```
 * via git ```git clone https://github.com/MoserMichael/pygamewrap.git```
 
 

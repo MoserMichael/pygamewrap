@@ -6,7 +6,7 @@ def read(fname):
         return f.read()
 
 setuptools.setup(
-    name = "PyWrap", 
+    name = "PygameWrap", 
     version = "0.0.1",
     author = "Michael Moser",
     author_email = "moser.michael@gmail.com",
