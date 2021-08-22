@@ -63,6 +63,7 @@ The sprite classes derive from ```pygame.sprite.Sprite``` create instances and a
 ## Issues
 
 The pygame windows does not automatically get the focus, it is not brought to the foreground. I didn't find a way to do this, in a platform independent manner.
+It helps to have some background music in the game that starts once the game is running, this way the user is alerted that the game is running, even when the game window is not popping up.
 
 # License 
 
