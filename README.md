@@ -57,7 +57,7 @@ the module has the following classes:
 
 The sprite classes derive from ```pygame.sprite.Sprite``` create instances and add them to the ```PyGame``` object by calling ```add_sprite```
 * ```ImageSprite```, constructor is ```ImageSprite(imageFileName, transparentBackgroundColor, initialPosition, layer)```
-* ```AnimatedSprite``` - animated sprite, constructor is ```AnimatedSprite(imageFileNameList, transparentBackgroundColor, initialPosition, layer)``` a list of image files is passed, each image file is an animation frame, rotates between the images on each consecutive frame.
+* ```AnimatedSprite``` - animated sprite, constructor is ```AnimatedSprite(imageFileNameList, transparentBackgroundColor, initialPosition, layer)``` a list of image files names is passed, each image file name stands for an animation frame, on each consecutive frame of the game it displays the next image from list of images and cycles back to the first image from the list after displaying the last one.
 
 
 ## Issues
