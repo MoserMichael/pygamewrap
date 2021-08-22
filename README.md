@@ -18,7 +18,7 @@ Here is the result:
 I am not perfectly happy with the result, it does simplify things a bit, however the result is still somewhat complex.
 The [original tutorial](https://github.com/realpython/materials/blob/master/pygame-a-primer/py_tut_with_images.py) was 221 lines long, my result [is here](https://github.com/MoserMichael/pygamewrap/blob/master/08-add-sounds.py) (without wrapper library) and is 222 lines long (well, I am adding a few features here and there, to be fair)
 
-I think that the code is arguably cleaner with the pygame wrapper, less involved with the pygame API, more focussed on the game logic, that is.
+I think that the code is arguably cleaner with the pygame wrapper, less involved with the pygame API, more focussed on the game logic, that is; it is more high level than pygame, on the other hand it is much more basic then a real game engine.
 Well, anyway, here is the result for you to judge.
 
 ## Installation
