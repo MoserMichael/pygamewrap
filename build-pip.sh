@@ -16,12 +16,34 @@ cp pip-build/* staging_dir
 if [[ -f build.zip ]]; then
     rm build.zip
 fi
+
+#pushd staging_dir
+#zip  ../build.zip -r .
+#popd
+#
+#echo "*** files in build.zip ***"
+#unzip -l ./build.zip
+
 pushd staging_dir
-zip  ../build.zip -r .
+python3 setup.py sdist bdist_wheel
+
+python3 -m pip install --user --upgrade twine
+
+# twine is put here right now, so add it to path.
+export PATH=$HOME/Library/Python/3.9/bin:$PATH
+
+twine check dist/*
+
+cat <<EOF
+*** upload ***
+enter user: __token__
+for password: <pypi api token>
+EOF
+
+python3 -m twine upload --verbose dist/*
+
 popd
 
-echo "*** files in build.zip ***"
-unzip -l ./build.zip
 
 echo "*** build completed ***"
 
