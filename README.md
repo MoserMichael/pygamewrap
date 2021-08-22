@@ -28,7 +28,7 @@ Well, anyway, here is the result for you to judge.
 
 You can get this library
 
-* with pip ```pip3 install PygameWrap```
+* with pip ```pip3 install PygameWrap```  (also see this module on [pypi.org](https://pypi.org/project/PygameWrap/))
 * via git ```git clone https://github.com/MoserMichael/pygamewrap.git```
 
 
