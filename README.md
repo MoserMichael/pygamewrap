@@ -13,7 +13,7 @@ Now this project is trying to make a wrapper, that is hiding some of the complex
 Here is the result: 
 
 1) The PyWrap module holds the wrapper for pygame
-2) the root directory holds a sequence of files that develop a game, each one is adding a feature on top of the previous one. The game implements the same game as in the  [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, and is using the same graphics and sounds. I also added some additional features, like animated sprites and caching & reuse of sprites etc.
+2) the root directory holds a sequence of files that develop a game, each one is adding a feature on top of the previous one. The sample game implements the same game as in the  [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, and it is using the same graphics and sounds. I also added some additional features, like animated sprites and caching & reuse of sprites etc.
 
 I am not perfectly happy with the result, it does simplify things a bit, however the result is still somewhat complex.
 The [original tutorial](https://github.com/realpython/materials/blob/master/pygame-a-primer/py_tut_with_images.py) was 221 lines long, my result [is here](https://github.com/MoserMichael/pygamewrap/blob/master/08-add-sounds.py) (without wrapper library) and is 222 lines long (well, I am adding a few features here and there, to be fair)
