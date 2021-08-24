@@ -2,7 +2,7 @@
 
 ## Intro
 
-This library is more high level than pygame, on the other hand it is much more basic then a real game engine. It tries to be the right mixture, in order to make using pygame fun again!
+This library is slightly more high level than [pygame](https://www.pygame.org/wiki/about), on the other hand it is much more basic then a real game engine. It tries to be the right mixture; its aim is to make the programming of simple python games fun again!
 
 I have been trying to prepare a python course for my kids [here](https://github.com/MoserMichael/pythoncourse); one of the things that i would like to do is a game with pygame.
 Now there are lots of nice pygame tutorials, I followed the following [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, the source code for the tutorial is [here](https://github.com/realpython/materials/tree/master/pygame-a-primer)
@@ -14,7 +14,7 @@ Compare that to what I had in my youth: I got my intro to programming on a [TI 9
 Now this project is trying to make a wrapper, that is hiding some of the complexity and boilerplate setup of the pygame package.
 Here is the result: 
 
-1) The PyWrap module holds the wrapper for pygame
+1) The PygameWrap module holds the wrapper for pygame
 2) the root directory holds a sequence of files that develop a game, each one is adding a feature on top of the previous one. The sample game implements the same game as in the  [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, and it is using the same graphics and sounds. I also added some additional features, like animated sprites and caching & reuse of sprites etc.
 
 I am not perfectly happy with the result, it does simplify things a bit, however the result is still somewhat complex.
