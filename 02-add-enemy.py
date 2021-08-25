@@ -31,7 +31,7 @@ def addCloud(game):
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
-# add a timer to the game. once per second (100ms) is is calling the addCloud function
+# add a timer to the game. once per second is is calling the addCloud function
 game.add_timer_event(1000, addCloud)
 
 # sprite that draws a missile, missiles have different velocity
