@@ -53,10 +53,8 @@ class Missile(pywrap.ImageSprite):
 
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
-    # create a new cloud sprite
     missile = Missile(game.screen_width(), game.screen_height())
-    # add the cloud sprite to the game.
-    game.add_sprite(missile) # add as last to list of all sprites, so it will be drawn above the clouds
+    game.add_sprite(missile) 
 
 # add timer, once every 250 millisecond the add_missile function will be called.
 game.add_timer_event(250, add_missile)

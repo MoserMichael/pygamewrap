@@ -310,8 +310,7 @@ def add_missile(game):
             # reuse a cached sprite
             enemy.reuse(game)
 
-    # add the cloud sprite to the game.
-    game.add_sprite(enemy) # add as last of the sprites, so it will be drawn above the clouds
+    game.add_sprite(enemy) 
     game.add_bad_player(enemy)
 
 
