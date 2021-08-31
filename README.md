@@ -2,7 +2,7 @@
 
 ## Intro
 
-This library is slightly more high level than [pygame](https://www.pygame.org/wiki/about), on the other hand it is much more basic then a real game engine. It tries to be the right mixture; its aim is to make the programming of simple python games fun again!
+This library is slightly more high level than [pygame](https://www.pygame.org/wiki/about), on the other hand it is much more basic than a real game engine. It tries to be the right mixture; its aim is to make the programming of simple python games fun again!
 
 I have been trying to prepare a python course for my kids [here](https://github.com/MoserMichael/pythoncourse); one of the things that i would like to do is a game with pygame.
 Now there are lots of nice pygame tutorials, I followed the following [Pygame primer](https://realpython.com/pygame-a-primer/) by Jon Fincher, the source code for the tutorial is [here](https://github.com/realpython/materials/tree/master/pygame-a-primer)

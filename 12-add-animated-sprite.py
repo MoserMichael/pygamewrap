@@ -1,5 +1,4 @@
 # the missiles and bullets can move in different directions.
-from pywrap.pywrap import AnimatedSprite
 from pygame.constants import K_SPACE, K_h, K_k
 import pywrap
 import random
