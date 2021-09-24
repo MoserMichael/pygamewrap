@@ -7,7 +7,7 @@ def read(fname):
 
 setuptools.setup(
     name = "PygameWrap", 
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Michael Moser",
     author_email = "moser.michael@gmail.com",
     description = ("small wrapper/toolkit for writing games with pygame"),
