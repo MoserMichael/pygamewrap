@@ -5,7 +5,7 @@ import random
 import pygame
 
 OpeningScreen = """
-Basic Shooter Game 
+Basic Shooter Game
 
 Move your figher and shoot down missiles and monsters
 
@@ -70,7 +70,7 @@ class Game(pywrap.PyGame):
             self.play_sound("Collision.ogg")
             print("game over. your score is:", self.score)
             self.exit()
-        
+
         for bullet in self.bullets:
             collide = pygame.sprite.spritecollideany(bullet, self.badguys)
             if collide:
@@ -113,7 +113,7 @@ class Bullet(pywrap.ImageSprite):
     def update(self):
         self.rect.move_ip(self.speed, self.dy)
         if self.rect.right > self.width:
-            self.kill() 
+            self.kill()
         if self.rect.top <= 0 or self.rect.bottom >= self.game.screen_height():
             self.dy = - self.dy
 
@@ -131,7 +131,7 @@ class Player(pywrap.ImageSprite):
             (255, 255, 255),        # background color of the sprite
             (game.screen_width()/3, game.screen_height()/2),    # initial position of sprite
             2)
-        self.game = game      
+        self.game = game
 
     def handle_key_up(self, game):
         self.rect.move_ip(0, -2)
@@ -213,13 +213,13 @@ class Cloud(pywrap.ImageSprite):
     # presence of this method indicates that sprite can be reused.
     def reuse(self, width, height):
         self.rect = self.surf.get_rect(center = (random.randint(width + 20, width + 100),random.randint(0, height)))
-   
+
     # Move the cloud based on a constant speed
     # Remove it when it passes the left edge of the screen
     def update(self):
         self.rect.move_ip(-5, 0)
         if self.rect.right < 0:
-            self.kill()       
+            self.kill()
 
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
@@ -260,7 +260,7 @@ class Missile(pywrap.ImageSprite):
     def update(self):
         self.rect.move_ip(-self.speed, self.speed_dy)
         if self.rect.right < 0:
-            self.kill() 
+            self.kill()
         if self.rect.top <= 0 or self.rect.bottom > self.game.screen_height():
             self.speed_dy = - self.speed_dy
 
@@ -286,7 +286,7 @@ class Packman(pywrap.AnimatedSprite):
     def update(self):
         self.rect.move_ip(-self.speed, 0)
         if self.rect.right < 0:
-            self.kill() 
+            self.kill()
 
 
 
@@ -309,7 +309,7 @@ def add_missile(game):
             # reuse a cached sprite
             enemy.reuse(game)
 
-    game.add_sprite(enemy) 
+    game.add_sprite(enemy)
     game.add_bad_player(enemy)
 
 
