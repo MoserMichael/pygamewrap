@@ -18,6 +18,6 @@ echo "everything is fine. test passed"
 
 deactivate
 
-#rm -rf my-venv
+rm -rf my-venv
 
 popd tst
