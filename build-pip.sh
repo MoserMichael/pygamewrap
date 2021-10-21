@@ -10,6 +10,7 @@ mkdir -p staging_dir/tests
 
 cp *.py *.ogg *.png *.mp3 staging_dir/tests
 cp pywrap/*.py staging_dir/src/pywrap
+cp requirements.txt staging_dir/
 cp LICENSE.txt README.md staging_dir
 cp pip-build/* staging_dir
 
