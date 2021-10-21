@@ -26,7 +26,7 @@ I think that the code is arguably cleaner with the pygame wrapper, less involved
 
 * You must use this with python3, 
 
-``pip3 install pygamewrap```
+```pip3 install pygamewrap```
 
 You can get this library
 
