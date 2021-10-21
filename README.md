@@ -28,11 +28,6 @@ I think that the code is arguably cleaner with the pygame wrapper, less involved
 
 ```pip3 install pygamewrap```
 
-You can get this library
-
-* with pip ```pip3 install PygameWrap```  (also see this module on [pypi.org](https://pypi.org/project/PygameWrap/))
-* via git ```git clone https://github.com/MoserMichael/pygamewrap.git```
-
 
 ## The API
 
