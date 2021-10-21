@@ -28,6 +28,7 @@ I think that the code is arguably cleaner with the pygame wrapper, less involved
 
 ```pip3 install pygamewrap```
 
+Also view this package on [pypi](https://pypi.org/project/PygameWrap/)
 
 ## The API
 
