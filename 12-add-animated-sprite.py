@@ -34,14 +34,14 @@ from pygame.locals import (
     K_l,
     K_x,
     K_c,
-    K_SPACE
+    K_SPACE,
 )
 
 
 class Game(pywrap.PyGame):
     def __init__(self):
         super(Game, self).__init__()
-        self.goodguy= None
+        self.goodguy = None
         self.badguys = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         # the score for this game.
@@ -54,7 +54,14 @@ class Game(pywrap.PyGame):
         self.print_dialog(OpeningScreen)
         super().run()
         self.stop_all_sounds()
-        self.print_dialog("Game Over\nYour Score: ", self.score,"\nBullet speed:", self.bullet_speed, "\nEnemy missile speed:", self.max_missile_speed)
+        self.print_dialog(
+            "Game Over\nYour Score: ",
+            self.score,
+            "\nBullet speed:",
+            self.bullet_speed,
+            "\nEnemy missile speed:",
+            self.max_missile_speed,
+        )
 
     def add_good_player(self, player):
         self.goodguy = player
@@ -85,16 +92,26 @@ class Game(pywrap.PyGame):
 
     def on_start_frame(self):
         super().on_start_frame()
-        self.print(0, self.screen_height() - self.font_size, "Score: ", self.score, "Weapon:", self.bullet_speed, "Enemy:", self.max_missile_speed)
+        self.print(
+            0,
+            self.screen_height() - self.font_size,
+            "Score: ",
+            self.score,
+            "Weapon:",
+            self.bullet_speed,
+            "Enemy:",
+            self.max_missile_speed,
+        )
 
 
 # sprite that draws a bullet shot by the player
 class Bullet(pywrap.ImageSprite):
     def __init__(self, game, x, y, dy):
         super(Bullet, self).__init__(
-            "bullet.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (x, y) ) # initial position of sprite
+            "bullet.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (x, y),
+        )  # initial position of sprite
         self.speed = game.bullet_speed
         self.width = game.screen_width()
         self.dy = dy
@@ -102,7 +119,7 @@ class Bullet(pywrap.ImageSprite):
 
     # presence of this method indicates that sprite can be reused.
     def reuse(self, game, x, y, dy):
-        self.rect = self.surf.get_rect(center = (x, y))
+        self.rect = self.surf.get_rect(center=(x, y))
         self.speed = game.bullet_speed
         self.width = game.screen_width()
         self.dy = dy
@@ -115,8 +132,7 @@ class Bullet(pywrap.ImageSprite):
         if self.rect.right > self.width:
             self.kill()
         if self.rect.top <= 0 or self.rect.bottom >= self.game.screen_height():
-            self.dy = - self.dy
-
+            self.dy = -self.dy
 
 
 # create an instance of the game
@@ -127,10 +143,14 @@ game = Game()
 class Player(pywrap.ImageSprite):
     def __init__(self, game):
         super(Player, self).__init__(
-            "jet.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (game.screen_width()/3, game.screen_height()/2),    # initial position of sprite
-            2)
+            "jet.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (
+                game.screen_width() / 3,
+                game.screen_height() / 2,
+            ),  # initial position of sprite
+            2,
+        )
         self.game = game
 
     def handle_key_up(self, game):
@@ -139,18 +159,16 @@ class Player(pywrap.ImageSprite):
             self.rect.top = 0
         game.play_sound("Rising_putter.ogg")
 
-
     def handle_key_down(self, game):
         self.rect.move_ip(0, 2)
         if self.rect.bottom >= game.screen_height():
             self.rect.bottom = game.screen_height()
         game.play_sound("Falling_putter.ogg")
 
-
     def handle_key_left(self, game):
         self.rect.move_ip(-5, 0)
         if self.rect.left <= 0:
-            self.rect.left  = 0
+            self.rect.left = 0
 
     def handle_key_right(self, game):
         self.rect.move_ip(5, 0)
@@ -171,9 +189,19 @@ class Player(pywrap.ImageSprite):
         # get cached sprite, if it is in cache
         bullet = game.get_cached_sprite(type(Bullet))
         if bullet == None:
-            bullet = Bullet(game, self.rect.x+self.rect.width, self.rect.y+self.rect.height/2, dy)
+            bullet = Bullet(
+                game,
+                self.rect.x + self.rect.width,
+                self.rect.y + self.rect.height / 2,
+                dy,
+            )
         else:
-            bullet.reuse(game, self.rect.x+self.rect.width, self.rect.y+self.rect.height/2, dy)
+            bullet.reuse(
+                game,
+                self.rect.x + self.rect.width,
+                self.rect.y + self.rect.height / 2,
+                dy,
+            )
 
         game.add_sprite(bullet)
         game.add_bullet(bullet)
@@ -183,7 +211,7 @@ player = Player(game)
 game.add_key_pressed_event(K_UP, player.handle_key_up)
 game.add_key_pressed_event(K_k, player.handle_key_up)
 
-game.add_key_pressed_event(K_DOWN,player.handle_key_down)
+game.add_key_pressed_event(K_DOWN, player.handle_key_down)
 game.add_key_pressed_event(K_j, player.handle_key_down)
 
 game.add_key_pressed_event(K_LEFT, player.handle_key_left)
@@ -197,7 +225,6 @@ game.add_key_down_event(K_x, player.shoot_up)
 game.add_key_down_event(K_c, player.shoot_down)
 
 
-
 game.add_sprite(player)
 game.add_good_player(player)
 
@@ -205,14 +232,20 @@ game.add_good_player(player)
 class Cloud(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Cloud, self).__init__(
-            "cloud.png",    # the picture of the sprite
-            (0,0,0),        # background color of the sprite
-            (random.randint(width + 20, width + 100),random.randint(0, height)),  # initial position of sprite
-            0)
+            "cloud.png",  # the picture of the sprite
+            (0, 0, 0),  # background color of the sprite
+            (
+                random.randint(width + 20, width + 100),
+                random.randint(0, height),
+            ),  # initial position of sprite
+            0,
+        )
 
     # presence of this method indicates that sprite can be reused.
     def reuse(self, width, height):
-        self.rect = self.surf.get_rect(center = (random.randint(width + 20, width + 100),random.randint(0, height)))
+        self.rect = self.surf.get_rect(
+            center=(random.randint(width + 20, width + 100), random.randint(0, height))
+        )
 
     # Move the cloud based on a constant speed
     # Remove it when it passes the left edge of the screen
@@ -220,6 +253,7 @@ class Cloud(pywrap.ImageSprite):
         self.rect.move_ip(-5, 0)
         if self.rect.right < 0:
             self.kill()
+
 
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
@@ -236,6 +270,7 @@ def addCloud(game):
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
+
 # add a timer to the game. once per second is is calling the addCloud function
 game.add_timer_event(1000, addCloud)
 
@@ -243,17 +278,26 @@ game.add_timer_event(1000, addCloud)
 class Missile(pywrap.ImageSprite):
     def __init__(self, game):
         super(Missile, self).__init__(
-            "missile.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (random.randint(game.screen_width() + 20, game.screen_width() + 100),random.randint(0, game.screen_height())), # initial position of sprite\
-            1)
+            "missile.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (
+                random.randint(game.screen_width() + 20, game.screen_width() + 100),
+                random.randint(0, game.screen_height()),
+            ),  # initial position of sprite\
+            1,
+        )
         self.speed = random.randint(5, game.max_missile_speed)
         self.speed_dy = random.randint(-2, 2)
         self.game = game
 
-     # presence of this method indicates that sprite can be reused.
+    # presence of this method indicates that sprite can be reused.
     def reuse(self, width, height):
-        self.rect = self.surf.get_rect(center = (random.randint(game.screen_width() + 20, game.screen_width() + 100),random.randint(0, game.screen_height())))
+        self.rect = self.surf.get_rect(
+            center=(
+                random.randint(game.screen_width() + 20, game.screen_width() + 100),
+                random.randint(0, game.screen_height()),
+            )
+        )
 
     # Move the cloud based on a constant speed
     # Remove it when it passes the left edge of the screen
@@ -262,24 +306,42 @@ class Missile(pywrap.ImageSprite):
         if self.rect.right < 0:
             self.kill()
         if self.rect.top <= 0 or self.rect.bottom > self.game.screen_height():
-            self.speed_dy = - self.speed_dy
+            self.speed_dy = -self.speed_dy
 
 
 # sprite that draws a missile, missiles have different velocity
 class Packman(pywrap.AnimatedSprite):
     def __init__(self, game):
-        frames = [ "pmon1.png", "pmon2.png", "pmon3.png", "pmon4.png", "pmon5.png", "pmon6.png", "pmon7.png", "pmon8.png" ]
+        frames = [
+            "pmon1.png",
+            "pmon2.png",
+            "pmon3.png",
+            "pmon4.png",
+            "pmon5.png",
+            "pmon6.png",
+            "pmon7.png",
+            "pmon8.png",
+        ]
         super(Packman, self).__init__(
-            frames,    # the picture phases of the sprite
-            (0, 0, 0),        # background color of the sprite
-            (random.randint(game.screen_width() + 20, game.screen_width() + 100),random.randint(0, game.screen_height())), # initial position of sprite\
-            1)
+            frames,  # the picture phases of the sprite
+            (0, 0, 0),  # background color of the sprite
+            (
+                random.randint(game.screen_width() + 20, game.screen_width() + 100),
+                random.randint(0, game.screen_height()),
+            ),  # initial position of sprite\
+            1,
+        )
         self.speed = random.randint(1, 5)
         self.game = game
 
-     # presence of this method indicates that sprite can be reused.
+    # presence of this method indicates that sprite can be reused.
     def reuse(self, width, height):
-        self.rect = self.surf.get_rect(center = (random.randint(game.screen_width() + 20, game.screen_width() + 100),random.randint(0, game.screen_height())))
+        self.rect = self.surf.get_rect(
+            center=(
+                random.randint(game.screen_width() + 20, game.screen_width() + 100),
+                random.randint(0, game.screen_height()),
+            )
+        )
 
     # Move the cloud based on a constant speed
     # Remove it when it passes the left edge of the screen
@@ -289,11 +351,10 @@ class Packman(pywrap.AnimatedSprite):
             self.kill()
 
 
-
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
 
-    if random.randint(1,3) > 2:
+    if random.randint(1, 3) > 2:
         enemy = game.get_cached_sprite(type(Packman))
         if enemy == None:
             enemy = Packman(game)

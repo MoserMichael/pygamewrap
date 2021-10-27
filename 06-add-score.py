@@ -1,4 +1,3 @@
-
 # The score is incremented for each downed missile, score is displayed on the screen
 
 from pygame.constants import K_SPACE, K_h, K_k
@@ -16,14 +15,14 @@ from pygame.locals import (
     K_j,
     K_k,
     K_l,
-    K_SPACE
+    K_SPACE,
 )
 
 
 class Game(pywrap.PyGame):
     def __init__(self):
         super(Game, self).__init__()
-        self.goodguy= None
+        self.goodguy = None
         self.badguys = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         # the score for this game.
@@ -42,7 +41,7 @@ class Game(pywrap.PyGame):
         if pygame.sprite.spritecollideany(self.goodguy, self.badguys):
             print("game over")
             self.exit()
-        
+
         for bullet in self.bullets:
             collide = pygame.sprite.spritecollideany(bullet, self.badguys)
             if collide:
@@ -60,9 +59,10 @@ class Game(pywrap.PyGame):
 class Bullet(pywrap.ImageSprite):
     def __init__(self, width, x, y):
         super(Bullet, self).__init__(
-            "bullet.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (x, y) ) # initial position of sprite
+            "bullet.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (x, y),
+        )  # initial position of sprite
         self.speed = 5
         self.width = width
 
@@ -71,7 +71,7 @@ class Bullet(pywrap.ImageSprite):
     def update(self):
         self.rect.move_ip(self.speed, 0)
         if self.rect.right > self.width:
-            self.kill() 
+            self.kill()
 
 
 # create an instance of the game
@@ -82,10 +82,11 @@ game = Game()
 class Player(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Player, self).__init__(
-            "jet.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (width/3, height/2),    # initial position of sprite
-            2)
+            "jet.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (width / 3, height / 2),  # initial position of sprite
+            2,
+        )
         self.screen_width = width
         self.screen_height = height
 
@@ -110,7 +111,11 @@ class Player(pywrap.ImageSprite):
             self.rect.right = self.screen_width
 
     def shoot(self, game):
-        bullet = Bullet(game.screen_width(), self.rect.x+self.rect.width, self.rect.y+self.rect.height/2)
+        bullet = Bullet(
+            game.screen_width(),
+            self.rect.x + self.rect.width,
+            self.rect.y + self.rect.height / 2,
+        )
         game.add_sprite(bullet)
         game.add_bullet(bullet)
 
@@ -119,7 +124,7 @@ player = Player(game.screen_width(), game.screen_height())
 game.add_key_pressed_event(K_UP, player.handle_key_up)
 game.add_key_pressed_event(K_k, player.handle_key_up)
 
-game.add_key_pressed_event(K_DOWN,player.handle_key_down)
+game.add_key_pressed_event(K_DOWN, player.handle_key_down)
 game.add_key_pressed_event(K_j, player.handle_key_down)
 
 game.add_key_pressed_event(K_LEFT, player.handle_key_left)
@@ -138,18 +143,22 @@ game.add_good_player(player)
 class Cloud(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Cloud, self).__init__(
-            "cloud.png",    # the picture of the sprite
-            (0,0,0),        # background color of the sprite
-            (random.randint(width + 20, width + 100),random.randint(0, height)),  # initial position of sprite
-            0)
-
+            "cloud.png",  # the picture of the sprite
+            (0, 0, 0),  # background color of the sprite
+            (
+                random.randint(width + 20, width + 100),
+                random.randint(0, height),
+            ),  # initial position of sprite
+            0,
+        )
 
     # Move the cloud based on a constant speed
     # Remove it when it passes the left edge of the screen
     def update(self):
         self.rect.move_ip(-5, 0)
         if self.rect.right < 0:
-            self.kill()       
+            self.kill()
+
 
 # is being called when the time event fires (see call to add_timer_event)
 def addCloud(game):
@@ -158,6 +167,7 @@ def addCloud(game):
     # add the cloud sprite to the game.
     game.add_sprite(cloud)
 
+
 # add a timer to the game. once per second is is calling the addCloud function
 game.add_timer_event(1000, addCloud)
 
@@ -165,10 +175,14 @@ game.add_timer_event(1000, addCloud)
 class Missile(pywrap.ImageSprite):
     def __init__(self, width, height):
         super(Missile, self).__init__(
-            "missile.png",    # the picture of the sprite
-            (255, 255, 255),        # background color of the sprite
-            (random.randint(width + 20, width + 100),random.randint(0, height)), # initial position of sprite\
-            1)
+            "missile.png",  # the picture of the sprite
+            (255, 255, 255),  # background color of the sprite
+            (
+                random.randint(width + 20, width + 100),
+                random.randint(0, height),
+            ),  # initial position of sprite\
+            1,
+        )
         self.speed = random.randint(5, 10)
 
     # Move the cloud based on a constant speed
@@ -176,12 +190,13 @@ class Missile(pywrap.ImageSprite):
     def update(self):
         self.rect.move_ip(-self.speed, 0)
         if self.rect.right < 0:
-            self.kill() 
+            self.kill()
+
 
 # is being called when the time event fires (see call to add_timer_event)
 def add_missile(game):
     missile = Missile(game.screen_width(), game.screen_height())
-    game.add_sprite(missile) 
+    game.add_sprite(missile)
     game.add_bad_player(missile)
 
 
